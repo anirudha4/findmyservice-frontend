@@ -3,7 +3,6 @@ import { createActions } from 'reduxsauce';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
-import { homeReducer } from "@pages/Home/reducer";
 import { coreSaga } from "@saga";
 
 
@@ -15,7 +14,6 @@ const persistConfig = {
 
 
 const combinedReducers = combineReducers({
-    homeReducer
 });
 export const { Types: appTypes, Creators: appCreators } = createActions({
     logout: []
