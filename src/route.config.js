@@ -1,5 +1,6 @@
 import Home from "@pages/Home";
 import Login from "@pages/Login";
+import Signup from "@pages/Signup";
 import routeConstants from "@utils/routeConstants";
 
 export default {
@@ -10,5 +11,9 @@ export default {
     login: {
         component: Login,
         ...routeConstants.login
+    },
+    signup: {
+        component: Signup,
+        ...routeConstants.signup
     }
 }

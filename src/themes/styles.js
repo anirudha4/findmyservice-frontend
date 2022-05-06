@@ -1,5 +1,5 @@
 export default {
-    maxWidth: '500px',
+    maxWidth: '1920',
     borderRadius: '8px',
     boxShadow: '0px 4px 4px 0px #141D242E',
 }

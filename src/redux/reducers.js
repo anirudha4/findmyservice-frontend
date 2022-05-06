@@ -4,6 +4,8 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import { coreSaga } from "@saga";
+import { signupReducer } from "@pages/Signup/reducer";
+import { loginReducer } from "@pages/Login/reducer";
 
 
 // redux-persist config
@@ -14,7 +16,10 @@ const persistConfig = {
 
 
 const combinedReducers = combineReducers({
+    signupReducer: signupReducer,
+    loginReducer: loginReducer
 });
+
 export const { Types: appTypes, Creators: appCreators } = createActions({
     logout: []
 });

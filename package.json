@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "@mantine/core": "^4.2.2",
+    "@mantine/form": "^4.2.2",
     "@mantine/hooks": "^4.2.2",
     "@mantine/next": "^4.2.2",
+    "@mantine/notifications": "^4.2.2",
     "axios": "^0.25.0",
     "immer": "^9.0.12",
     "react": "^17.0.2",

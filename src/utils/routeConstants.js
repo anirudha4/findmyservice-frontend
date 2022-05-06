@@ -4,5 +4,8 @@ export default {
     },
     login: {
         route: '/login'
+    },
+    signup: {
+        route: '/signup'
     }
 }
