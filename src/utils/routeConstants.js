@@ -1,11 +1,14 @@
 export default {
     home: {
-        route: '/'
+        route: '/app',
+        header: true
     },
     login: {
-        route: '/login'
+        route: '/login',
+        header: false
     },
     signup: {
-        route: '/signup'
+        route: '/signup',
+        header: false
     }
 }

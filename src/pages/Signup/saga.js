@@ -7,7 +7,8 @@ import { showNotification } from '@mantine/notifications';
 export function* requestSignup({ payload }) {
     try {
         const { data } = yield call(signupService, payload);
-        yield put(signupCreators.successSignup());
+        console.log({ data });
+        yield put(signupCreators.successSignup(data));
         showNotification({
             title: 'Success',
             message: data.message,

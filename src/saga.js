@@ -1,10 +1,9 @@
-import { loginSaga } from '@pages/Login/saga'
-import { signupSaga } from '@pages/Signup/saga'
+import { appSaga } from '@pages/Auth/saga'
 import { all } from 'redux-saga/effects'
 
 
 const sagaRegistry = [
-    signupSaga(),
+    appSaga()
 ]
 
 export function* coreSaga() {

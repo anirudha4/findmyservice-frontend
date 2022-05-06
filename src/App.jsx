@@ -1,36 +1,44 @@
-import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '@redux/reducers';
-import { NotificationsProvider } from '@mantine/notifications';
+import { LoadingOverlay, Text } from '@mantine/core';
+import { authCreators } from '@pages/Auth/reducer';
+import { appCreators } from '@redux/reducers';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import routeConfig from './route.config';
 
 
-function App() {
+function App(props) {
+  const { isLoggedIn, token, appLoading } = useSelector(state => state.authReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (token) {
+        dispatch(authCreators.requestFetchUser({ token }));
+      } else {
+        dispatch(appCreators.logout());
+      }
+    }
+  }, [])
+  if (appLoading) {
+    return <Text>Loading...</Text>
+  }
   return (
-    <NotificationsProvider
-      position="top-right"
-    >
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <Routes>
-              {Object.keys(routeConfig).map((routeKey, index) => {
-                const Component = routeConfig[routeKey].component;
-                return (
-                  <Route
-                    path={routeConfig[routeKey].route}
-                    exact={routeConfig[routeKey].exact}
-                    key={index}
-                    element={<Component />}
-                  />
-                )
-              })}
-            </Routes>
-          </BrowserRouter>
-        </PersistGate>
-      </Provider >
-    </NotificationsProvider>
+    <>
+      {isLoggedIn && "Hello"}
+      <Routes>
+        {Object.keys(routeConfig).map((routeKey, index) => {
+          const Component = routeConfig[routeKey].component;
+          return (
+            <Route
+              path={routeConfig[routeKey].route}
+              exact={routeConfig[routeKey].exact}
+              key={index}
+              element={<Component />}
+            />
+          )
+        })}
+      </Routes>
+    </>
   )
 }
 

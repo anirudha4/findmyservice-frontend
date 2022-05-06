@@ -6,19 +6,18 @@ import {
   Button,
   Title,
   Text,
-  Anchor,
 } from '@mantine/core';
 import { colors, styles } from '@themes';
 import { useForm } from '@mantine/form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { signupCreators } from './reducer';
+import { authCreators } from '@pages/Auth/reducer';
+import withOutGaurd from '@components/hoc';
+import routeConstants from '@utils/routeConstants';
 
-
-
-export default function Signup() {
+function Signup() {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(state => state.signupReducer);
+  const { isLoading, isLoggedIn } = useSelector(state => state.authReducer);
   const form = useForm({
     initialValues: {
       email: '',
@@ -33,7 +32,10 @@ export default function Signup() {
     },
   });
   const handleSubmit = values => {
-    dispatch(signupCreators.requestSignup(values));
+    dispatch(authCreators.requestSignup(values));
+  }
+  if(isLoggedIn) {
+    return <Navigate to={routeConstants.home.route} />
   }
   return (
     <div style={{ maxWidth: 500, margin: '0 auto' }}>
@@ -57,13 +59,16 @@ export default function Signup() {
             Sign Up
           </Button>
         </form>
-        <Text align="center" mt="md">
+        <Text align="center" mt="md" style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
           Already have an account?{' '}
-          <Link to="/login" weight={700}>
-            Login
+          <Link style={{ textDecoration: 'none' }} to="/login" weight={700}>
+            <Text color={colors.primary}>Login</Text>
           </Link>
         </Text>
       </Paper>
     </div>
   );
 }
+
+export default Signup;
+
