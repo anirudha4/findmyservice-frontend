@@ -1,15 +1,21 @@
-import { LoadingOverlay, Text } from '@mantine/core';
-import { authCreators } from '@pages/Auth/reducer';
-import { appCreators } from '@redux/reducers';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  Loader,
+  LoadingOverlay,
+} from '@mantine/core';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { appCreators } from '@redux/reducers';
+import { authCreators } from '@pages/Auth/reducer';
 import routeConfig from './route.config';
+import Navbar from '@components/Navbar';
+import Layout from '@components/Layout';
 
 
 function App(props) {
   const { isLoggedIn, token, appLoading } = useSelector(state => state.authReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (isLoggedIn) {
       if (token) {
@@ -20,24 +26,25 @@ function App(props) {
     }
   }, [])
   if (appLoading) {
-    return <Text>Loading...</Text>
+    return <LoadingOverlay><Loader /></LoadingOverlay>
   }
   return (
     <>
-      {isLoggedIn && "Hello"}
-      <Routes>
-        {Object.keys(routeConfig).map((routeKey, index) => {
-          const Component = routeConfig[routeKey].component;
-          return (
-            <Route
-              path={routeConfig[routeKey].route}
-              exact={routeConfig[routeKey].exact}
-              key={index}
-              element={<Component />}
-            />
-          )
-        })}
-      </Routes>
+      <Layout>
+        <Routes>
+          {Object.keys(routeConfig).map((routeKey, index) => {
+            const Component = routeConfig[routeKey].component;
+            return (
+              <Route
+                path={routeConfig[routeKey].route}
+                exact={routeConfig[routeKey].exact}
+                key={index}
+                element={<Component />}
+              />
+            )
+          })}
+        </Routes>
+      </Layout>
     </>
   )
 }

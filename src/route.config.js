@@ -1,3 +1,4 @@
+import BecomeSeller from "@pages/BecomeSeller";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
 import Signup from "@pages/Signup";
@@ -15,5 +16,13 @@ export default {
     signup: {
         component: Signup,
         ...routeConstants.signup
+    },
+    redirect: {
+        component: Home,
+        route: '/'
+    },
+    becomeASeller: {
+        component: BecomeSeller,
+        ...routeConstants.becomeASeller
     }
 }

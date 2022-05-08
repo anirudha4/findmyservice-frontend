@@ -5,7 +5,6 @@ import { Navigate } from "react-router-dom";
 const withGaurd = (WrappedComponent) => {
     return function Component(props) {
         const { isLoggedIn } = useSelector(state => state.authReducer);
-        console.log({ isLoggedIn });
         if (!isLoggedIn) {
             return <Navigate to={routeConstants.login.route} />
         }

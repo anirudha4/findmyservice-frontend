@@ -10,5 +10,8 @@ export default {
     signup: {
         route: '/signup',
         header: false
+    },
+    becomeASeller: {
+        route: '/become-a-seller',
     }
 }

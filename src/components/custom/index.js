@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     max-width: ${styles.maxWidth};
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 20px;
 `;
 export const Title = styled.p`
     font-weight: ${fonts.weights.bold};
