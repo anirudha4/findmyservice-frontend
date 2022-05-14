@@ -29,14 +29,12 @@ export const authReducer = (state = initialState, action) => produce(state, draf
             draft.error = null;
             break;
         case authTypes.SUCCESS_SIGNUP:
-            draft.isLoading = false;
             draft.error = null;
             draft.user = action.payload.user;
             draft.isLoggedIn = true;
             draft.token = action.payload.token;
             break;
         case authTypes.FAILURE_SIGNUP:
-            draft.isLoading = false;
             draft.error = action.error;
             draft.user = null;
             draft.isLoggedIn = false;
