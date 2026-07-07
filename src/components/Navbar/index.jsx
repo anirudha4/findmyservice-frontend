@@ -28,7 +28,14 @@ function Navbar({ user, isLoggedIn }) {
                                 <Menu.Item>Settings</Menu.Item>
                                 <Menu.Item component={Link} to='/become-a-seller'>Become a Seller</Menu.Item>
                                 <Divider />
-                                <Menu.Item color="red" onClick={_ => { pendo.clearSession(); dispatch(appCreators.logout()); }}>Logout</Menu.Item>
+                                <Menu.Item color="red" onClick={_ => {
+                                    if (typeof pendo !== 'undefined') {
+                                        pendo.track("user_logged_out", {});
+                                        pendo.clearSession();
+                                    }
+                                    dispatch(appCreators.logout());
+                                }}>Logout</Menu.Item>
+                                <Menu.Item color="red" onClick={_ => {  dispatch(appCreators.logout()); }}>Logout</Menu.Item>
                             </Menu>
                         </div> : (
                             <div className='nav-links'>

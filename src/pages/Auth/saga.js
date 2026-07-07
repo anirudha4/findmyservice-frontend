@@ -20,7 +20,13 @@ export function* requestSignup({ payload }) {
             title: 'Success',
             message: data.message,
         })
-        // do something
+        if (typeof pendo !== 'undefined') {
+            pendo.track("signup_completed", {
+                user_name: data.user?.name,
+                email_domain: payload.email?.split('@')[1],
+                signup_method: "email"
+            });
+        }
     } catch (error) {
         const { message } = error?.response?.data || {};
         showNotification({
@@ -28,6 +34,12 @@ export function* requestSignup({ payload }) {
             message: message || 'Something went wrong',
             color: 'red'
         })
+        if (typeof pendo !== 'undefined') {
+            pendo.track("signup_failed", {
+                error_message: message || 'Something went wrong',
+                email_domain: payload.email?.split('@')[1]
+            });
+        }
         yield put(authCreators.failureSignup(message));
     }
 }
@@ -48,7 +60,12 @@ export function* requestLogin({ payload }) {
             title: 'Success',
             message: data.message,
         })
-        // do something
+        if (typeof pendo !== 'undefined') {
+            pendo.track("login_completed", {
+                user_name: data.user?.name,
+                is_verified: data.user?.verified
+            });
+        }
     } catch (error) {
         const { message } = error?.response?.data || {};
         showNotification({
@@ -56,6 +73,11 @@ export function* requestLogin({ payload }) {
             message: message || 'Something went wrong',
             color: 'red'
         })
+        if (typeof pendo !== 'undefined') {
+            pendo.track("login_failed", {
+                error_message: message || 'Something went wrong'
+            });
+        }
         yield put(authCreators.failureLogin(message));
     }
 }
