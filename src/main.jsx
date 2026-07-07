@@ -9,7 +9,11 @@ import { store, persistor } from '@redux/reducers';
 import { NotificationsProvider } from '@mantine/notifications';
 import routeConfig from './route.config';
 
-
+pendo.initialize({
+  visitor: {
+    id: ''
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>

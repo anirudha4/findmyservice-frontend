@@ -8,6 +8,14 @@ export function* requestSignup({ payload }) {
     try {
         const { data } = yield call(signupService, payload);
         yield put(authCreators.successSignup(data));
+        pendo.identify({
+            visitor: {
+                id: data.user.email,
+                email: data.user.email,
+                full_name: data.user.name,
+                verified: data.user.verified
+            }
+        });
         showNotification({
             title: 'Success',
             message: data.message,
@@ -40,6 +48,14 @@ export function* requestLogin({ payload }) {
     try {
         const { data } = yield call(loginService, payload);
         yield put(authCreators.successLogin(data));
+        pendo.identify({
+            visitor: {
+                id: data.user.email,
+                email: data.user.email,
+                full_name: data.user.name,
+                verified: data.user.verified
+            }
+        });
         showNotification({
             title: 'Success',
             message: data.message,
@@ -69,6 +85,14 @@ export function* requestFetchUser({ payload }) {
     try {
         const { data } = yield call(verifyUserService, payload);
         yield put(authCreators.successFetchUser(data));
+        pendo.identify({
+            visitor: {
+                id: data.user.email,
+                email: data.user.email,
+                full_name: data.user.name,
+                verified: data.user.verified
+            }
+        });
     } catch (error) {
         const { message } = error?.response?.data || { message: 'Something went wrong' };
         yield put(authCreators.failureFetchUser(message));
