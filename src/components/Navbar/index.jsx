@@ -30,12 +30,24 @@ function Navbar({ user, isLoggedIn }) {
                                 <Divider />
                                 <Menu.Item color="red" onClick={_ => {
                                     if (typeof pendo !== 'undefined') {
-                                        pendo.track("user_logged_out", {});
+                                        pendo.track("user_logged_out", {
+                                            user_name: user.name,
+                                            is_verified: user.verified
+                                        });
                                         pendo.clearSession();
                                     }
                                     dispatch(appCreators.logout());
                                 }}>Logout</Menu.Item>
-                                <Menu.Item color="red" onClick={_ => {  dispatch(appCreators.logout()); }}>Logout</Menu.Item>
+                                <Menu.Item color="red" onClick={_ => {
+                                    if (typeof pendo !== 'undefined') {
+                                        pendo.track("user_logged_out", {
+                                            user_name: user.name,
+                                            is_verified: user.verified
+                                        });
+                                        pendo.clearSession();
+                                    }
+                                    dispatch(appCreators.logout());
+                                }}>Logout</Menu.Item>
                             </Menu>
                         </div> : (
                             <div className='nav-links'>

@@ -24,7 +24,8 @@ export function* requestSignup({ payload }) {
             pendo.track("signup_completed", {
                 user_name: data.user?.name,
                 email_domain: payload.email?.split('@')[1],
-                signup_method: "email"
+                signup_method: "email",
+                is_verified: data.user?.verified
             });
         }
     } catch (error) {
